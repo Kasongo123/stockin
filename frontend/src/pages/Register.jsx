@@ -1,3 +1,4 @@
+// src/pages/Register.jsx
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -9,24 +10,10 @@ const Register = () => {
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
-  // Password validation function
-  const validatePassword = (pwd) => {
-    // Minimum 8 chars, 1 uppercase, 1 number, 1 special char
-    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return regex.test(pwd);
-  };
-
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
-
-    if (!validatePassword(password)) {
-      setError(
-        "Password must be at least 8 characters, include 1 uppercase letter, 1 number, and 1 special character."
-      );
-      return;
-    }
 
     try {
       await axios.post("http://localhost:5000/api/auth/register", {
